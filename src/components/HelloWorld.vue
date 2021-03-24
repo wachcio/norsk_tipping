@@ -5,13 +5,7 @@
             :key="gameResult.drawId"
         >
             {{ new Date(gameResult.drawDate).toLocaleDateString() }} -
-            {{ gameResult.winnerNumber[0].number }},{{
-                gameResult.winnerNumber[1].number
-            }},{{ gameResult.winnerNumber[2].number }},{{
-                gameResult.winnerNumber[3].number
-            }},{{ gameResult.winnerNumber[4].number }},{{
-                gameResult.winnerNumber[5].number
-            }}
+            {{ sortData(gameResult.winnerNumber) }}
             <b>{{ gameResult.winnerNumber[6].number }}</b>
         </p>
     </div>
@@ -50,6 +44,16 @@ export default {
                 .catch(function(error) {
                     console.log(error);
                 });
+        },
+        sortData: (item) => {
+            let numbers = [];
+
+            item.forEach((i) => {
+                if (i.type == 1) {
+                    numbers.push(i.number);
+                }
+            });
+            return numbers.sort((a, b) => a - b).toString();
         },
     },
     mounted: function() {
